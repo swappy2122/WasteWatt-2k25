@@ -1,7 +1,7 @@
 # WasteWatt-2k25
 
 
-EcoDisposal Solutions is a web application that enables users to submit waste disposal service requests. Admins can log in to view and manage submissions. The app also includes an IoT simulation and map integration.
+WasteWatt is a web application that enables users to submit waste disposal service requests. Admins can log in to view and manage submissions. The app also includes an IoT simulation and map integration.
 
 ## 🌐 Features
 
