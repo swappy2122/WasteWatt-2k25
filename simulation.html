@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vegetable Waste Electrochemical Cell - Front View</title>
+<style>
+:root {
+--primary: #4CAF50;
+--secondary: #2196F3;
+--accent: #FF9800;
+--dark: #333;
+--light: #f5f5f5;
+}
+body {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+margin: 0;
+padding: 0;
+background-color: var(--light);
+color: var(--dark);
+line-height: 1.6;
+}
+.container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 20px;
+}
+header {
+text-align: center;
+padding: 20px 0;
+background-color: var(--primary);
+color: white;
+border-radius: 0 0 10px 10px;
+box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+h1 {
+margin: 0;
+font-size: 2rem;
+}
+.description {
+text-align: center;
+margin: 20px 0;
+padding: 0 20px;
+}
+.simulation-container {
+display: flex;
+flex-direction: column;
+align-items: center;
+margin-top: 20px;
+}
+.front-view {
+width: 100%;
+max-width: 800px;
+height: 400px;
+position: relative;
+background-color: white;
+border-radius: 10px;
+box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+overflow: hidden;
+margin-bottom: 30px;
+}
+.beaker {
+position: absolute;
+width: 220px;
+height: 280px;
+background-color: rgba(255, 255, 255, 0.8);
+border: 3px solid #ccc;
+border-radius: 0 0 30px 30px;
+bottom: 30px;
+}
+.beaker-a {
+left: 100px;
+}
+.beaker-b {
+right: 100px;
+}
+.liquid {
+position: absolute;
+bottom: 0;
+width: 100%;
+height: 80%;
+border-radius: 0 0 27px 27px;
+}
+.liquid-a {
+background-color: rgba(255, 152, 0, 0.4);
+}
+.liquid-b {
+background-color: rgba(173, 216, 230, 0.6);
+}
+.rod {
+position: absolute;
+width: 18px;
+height: 300px;
+bottom: 0;
+z-index: 2;
+}
+.copper-rod {
+background-color: #b87333;
+left: 50%;
+transform: translateX(-50%);
+}
+.zinc-rod {
+background-color: #d0d0d0;
+left: 50%;
+transform: translateX(-50%);
+}
+.beaker-label {
+position: absolute;
+bottom: 0;
+width: 100%;
+text-align: center;
+font-weight: bold;
+font-size: 0.8rem;
+padding: 5px;
+}
+.wire {
+position: absolute;
+background-color: #333;
+height: 4px;
+top: 80px;
+z-index: 10;
+}
+.wire-top {
+left: 210px;
+right: 210px;
+}
+.wire-left {
+left: 210px;
+width: 4px;
+height: 60px;
+top: 20px;
+}
+.wire-right {
+right: 210px;
+width: 4px;
+height: 60px;
+top: 20px;
+}
+.connection-point {
+position: absolute;
+width: 10px;
+height: 10px;
+border-radius: 50%;
+background-color: #555;
+z-index: 10;
+}
+.connection-left {
+left: 207px;
+top: 77px;
+}
+.connection-right {
+right: 207px;
+top: 77px;
+}
+.multimeter {
+position: absolute;
+width: 180px;
+height: 120px;
+background-color: #333;
+border-radius: 8px;
+top: 40px;
+left: 50%;
+transform: translateX(-50%);
+z-index: 20;
+box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 10px;
+}
+.multimeter-display {
+width: 160px;
+height: 50px;
+background-color: #222;
+border: 2px solid #555;
+border-radius: 5px;
+margin: 5px auto;
+font-family: 'Courier New', monospace;
+font-size: 1.8rem;
+display: flex;
+justify-content: center;
+align-items: center;
+color: #32CD32;
+}
+.multimeter-unit {
+font-size: 1rem;
+margin-left: 3px;
+}
+.multimeter-label {
+color: white;
+font-size: 0.8rem;
+margin-top: 5px;
+}
+.probe {
+position: absolute;
+width: 4px;
+height: 70px;
+z-index: 12;
+}
+.probe-red {
+background-color: red;
+top: 14px;
+right: 210px;
+}
+.probe-black {
+background-color: black;
+top: 14px;
+left: 210px;
+}
+.probe-tip {
+position: absolute;
+width: 8px;
+height: 8px;
+border-radius: 50%;
+bottom: -2px;
+}
+.tip-red {
+background-color: red;
+right: -2px;
+}
+.tip-black {
+background-color: black;
+left: -2px;
+}
+.salt-bridge {
+position: absolute;
+width: 240px;
+height: 30px;
+background-color: #f5f5f5;
+border: 2px solid #ccc;
+border-radius: 15px;
+top: 150px;
+left: 50%;
+transform: translateX(-50%);
+z-index: 3;
+}
+.electrons {
+position: absolute;
+width: 6px;
+height: 6px;
+background-color: blue;
+border-radius: 50%;
+opacity: 0;
+z-index: 15;
+}
+.control-panel {
+margin-top: 20px;
+text-align: center;
+}
+button {
+background-color: var(--primary);
+color: white;
+border: none;
+padding: 10px 20px;
+border-radius: 5px;
+cursor: pointer;
+font-size: 1rem;
+margin: 5px;
+transition: background-color 0.3s;
+}
+button:hover {
+background-color: #45a049;
+}
+.button-reset {
+background-color: #f44336;
+}
+.button-reset:hover {
+background-color: #d32f2f;
+}
+.view-label {
+position: absolute;
+top: 10px;
+left: 10px;
+font-weight: bold;
+font-size: 1.2rem;
+color: #555;
+}
+.beaker-contents {
+position: absolute;
+top: 20px;
+width: 100%;
+text-align: center;
+font-size: 0.75rem;
+color: #555;
+z-index: 5;
+}
+.ion-movement {
+position: absolute;
+width: 4px;
+height: 4px;
+border-radius: 50%;
+opacity: 0;
+z-index: 5;
+}
+.orange-peel {
+position: absolute;
+width: 40px;
+height: 20px;
+background-color: #FF9800;
+border-radius: 50%;
+z-index: 4;
+}
+.bubble {
+position: absolute;
+width: 8px;
+height: 8px;
+background-color: rgba(255,255,255,0.6);
+border-radius: 50%;
+z-index: 4;
+opacity: 0;
+}
+@media (max-width: 768px) {
+.front-view {
+height: 500px;
+}
+.beaker {
+width: 150px;
+}
+.beaker-a {
+left: 50px;
+}
+.beaker-b {
+right: 50px;
+}
+.wire-top {
+left: 170px;
+right: 170px;
+}
+.wire-left {
+left: 170px;
+}
+.wire-right {
+right: 170px;
+}
+.connection-left {
+left: 167px;
+}
+.connection-right {
+right: 167px;
+}
+.probe-red {
+right: 170px;
+}
+.probe-black {
+left: 170px;
+}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Vegetable Waste Electrochemical Cell</h1>
+</header>
+<div class="container">
+<div class="description">
+<p>This simulation shows a front view of a vegetable waste electrochemical cell with copper
+and zinc electrodes connected by a wire.</p>
+</div>
+<div class="simulation-container">
+<div class="front-view" id="frontView">
+<div class="view-label">FRONT VIEW</div>
+<!-- Beaker A - Orange Peel Solution -->
+<div class="beaker beaker-a">
+<div class="liquid liquid-a" id="liquidA"></div>
+<div class="rod copper-rod"></div>
+<div class="beaker-contents">Orange Peels + Salt + Vinegar</div>
+<!-- Orange peels -->
+<div class="orange-peel" style="bottom: 40px; left: 20px; transform:
+rotate(20deg);"></div>
+<div class="orange-peel" style="bottom: 80px; left: 140px; transform: rotate(-
+15deg);"></div>
+<div class="orange-peel" style="bottom: 140px; left: 50px; transform:
+rotate(30deg);"></div>
+</div>
+<!-- Beaker B - Hydrogen Peroxide -->
+<div class="beaker beaker-b">
+<div class="liquid liquid-b" id="liquidB"></div>
+<div class="rod zinc-rod"></div>
+<div class="beaker-contents">Hydrogen Peroxide</div>
+</div>
+<!-- Salt Bridge -->
+<div class="salt-bridge"></div>
+<!-- Wire Connection -->
+<div class="wire wire-top"></div>
+<div class="wire wire-left"></div>
+<div class="wire wire-right"></div>
+<div class="connection-point connection-left"></div>
+<div class="connection-point connection-right"></div>
+<!-- Multimeter -->
+<div class="multimeter">
+<div class="multimeter-display" id="voltageDisplay">
+0.00<span class="multimeter-unit">V</span>
+</div>
+<div class="multimeter-label">DIGITAL MULTIMETER</div>
+</div>
+<!-- Probes -->
+<div class="probe probe-red">
+<div class="probe-tip tip-red"></div>
+</div>
+<div class="probe probe-black">
+<div class="probe-tip tip-black"></div>
+</div>
+<!-- Electron Flow (created by JS) -->
+<div id="electronContainer"></div>
+<!-- Bubble animation (created by JS) -->
+<div id="bubbleContainer"></div>
+</div>
+<div class="control-panel">
+<button onclick="startCell()" id="startBtn">Start Reaction</button>
+<button onclick="resetSimulation()" class="button-reset">Reset</button>
+</div>
+</div>
+</div>
+<script>
+let cellActive = false;
+let voltage = 0;
+const MAX_VOLTAGE = 0.47; // Maximum voltage set to 0.47V
+let electronIntervals = [];
+let bubbleIntervals = [];
+function startCell() {
+if (!cellActive) {
+cellActive = true;
+document.getElementById('startBtn').textContent = 'Running...';
+document.getElementById('startBtn').disabled = true;
+// Start electron flow animation
+createElectrons();
+// Create bubbles in the solutions
+createBubbles();
+// Start increasing voltage
+increaseVoltage();
+}
+}
+function createElectrons() {
+const electronContainer = document.getElementById('electronContainer');
+// Create electron flow along the wire
+for (let i = 0; i < 20; i++) {
+setTimeout(() => {
+const electron = document.createElement('div');
+electron.className = 'electrons';
+electronContainer.appendChild(electron);
+// Start position (from zinc rod)
+const startX = window.innerWidth > 768 ? 210 : 170;
+const startY = 80;
+// Set initial position
+electron.style.left =
+`${startX}px`;
+electron.style.top =
+`${startY}px`;
+// Animation path: right to left along the wire
+electron.animate([
+{ left:
+`${startX}px`, top:
+`${startY}px`, opacity: 0 },
+{ left:
+`${startX}px`, top:
+`${startY}px`, opacity: 1 },
+{ left:
+`${window.innerWidth / 2}px`, top:
+`${startY}px`, opacity: 1 },
+{ left:
+`${window.innerWidth - startX}px`, top:
+`${startY}px`, opacity: 1 },
+{ left:
+`${window.innerWidth - startX}px`, top:
+`${startY}px`, opacity: 0 }
+], {
+duration: 3000,
+fill: 'forwards'
+}).onfinish = () => {
+electron.remove();
+if (cellActive) {
+const newElectron = document.createElement('div');
+newElectron.className = 'electrons';
+electronContainer.appendChild(newElectron);
+newElectron.style.left =
+`${startX}px`;
+newElectron.style.top =
+`${startY}px`;
+newElectron.animate([
+{ left:
+`${startX}px`, top:
+`${startY}px`, opacity: 0 },
+{ left:
+`${startX}px`, top:
+`${startY}px`, opacity: 1 },
+{ left:
+`${window.innerWidth / 2}px`, top:
+`${startY}px`, opacity: 1 },
+{ left:
+`${window.innerWidth - startX}px`, top:
+`${startY}px`, opacity: 1 },
+{ left:
+`${window.innerWidth - startX}px`, top:
+`${startY}px`, opacity: 0 }
+], {
+duration: 3000,
+fill: 'forwards'
+}).onfinish = () => {
+newElectron.remove();
+};
+}
+};
+}, i * 150);
+}
+}
+function createBubbles() {
+const bubbleContainer = document.getElementById('bubbleContainer');
+// Create bubbles in both beakers
+for (let i = 0; i < 20; i++) {
+setTimeout(() => {
+// Beaker A bubbles
+createBubble(bubbleContainer, true);
+// Beaker B bubbles
+createBubble(bubbleContainer, false);
+}, i * 800);
+}
+}
+function createBubble(container, isLeftBeaker) {
+const bubble = document.createElement('div');
+bubble.className = 'bubble';
+container.appendChild(bubble);
+// Position bubble in the appropriate beaker
+const beakerWidth = window.innerWidth > 768 ? 220 : 150;
+const beakerLeft = isLeftBeaker ?
+(window.innerWidth > 768 ? 100 : 50) :
+(window.innerWidth - beakerWidth - (window.innerWidth > 768 ? 100 : 50));
+const randomX = beakerLeft + Math.random() * (beakerWidth - 20) + 10;
+const startY = 280;
+bubble.style.left =
+`${randomX}px`;
+bubble.style.bottom =
+`${30}px`;
+// Animate bubble rising
+bubble.animate([
+{ bottom: '30px', opacity: 0 },
+{ bottom: '50px', opacity: 0.8 },
+{ bottom: '200px', opacity: 0.5 },
+{ bottom: '250px', opacity: 0 }
+], {
+duration: 3000 + Math.random() * 2000,
+easing: 'ease-out',
+fill: 'forwards'
+}).onfinish = () => {
+bubble.remove();
+if (cellActive) {
+createBubble(container, isLeftBeaker);
+}
+};
+}
+function increaseVoltage() {
+if (!cellActive) return;
+// Simulate voltage increase up to the maximum of 0.47V
+if (voltage < MAX_VOLTAGE) {
+voltage += (Math.random() * 0.02);
+if (voltage > MAX_VOLTAGE) voltage = MAX_VOLTAGE - (Math.random() * 0.02);
+// Add some fluctuation to simulate real multimeter readings
+let displayVoltage = voltage + (Math.random() * 0.01 - 0.005);
+if (displayVoltage > MAX_VOLTAGE) displayVoltage = MAX_VOLTAGE;
+document.getElementById('voltageDisplay').innerHTML = displayVoltage.toFixed(2) +
+'<span class="multimeter-unit">V</span>';
+setTimeout(increaseVoltage, 500);
+}
+}
+function resetSimulation() {
+// Reset all values and visuals
+cellActive = false;
+voltage = 0;
+// Clear intervals
+electronIntervals.forEach(interval => clearInterval(interval));
+bubbleIntervals.forEach(interval => clearInterval(interval));
+electronIntervals = [];
+bubbleIntervals = [];
+// Reset display
+document.getElementById('voltageDisplay').innerHTML = '0.00<span class="multimeter-unit">V</span>';
+document.getElementById('startBtn').textContent = 'Start Reaction';
+document.getElementById('startBtn').disabled = false;
+}
+</script>
+<!-- Step-by-step Instructions -->
+<div class="steps">
+<h3>How It is Works:</h3>
+<ol>
+<h4>Step 1: Prepare Peel Extract</h4>
+<li>Collect fresh fruit/vegetable peels.</li>
+<li>Blend or crush them with a small amount of water.</li>
+</ol>
+<ol>
+<li>Filter to get a liquid extract. This juice contains natural acids, salts, and antioxidants – perfect for ionic conduction.</li>
+</ol>
+<ol>
+<h4>Step 2: Add Hydrogen Peroxide</h4>
+<li>Add a small amount of 3–5% hydrogen peroxide to the extract (ratio: ~1 part H₂O₂ to 4 parts peel extract). H₂O₂ helps boost the oxidation reactions.</li>
+</ol>
+<ol>
+<h4>Step 3: Set Up Electrodes</h4>
+<li>Insert a zinc strip (anode) and a copper strip (cathode) into the solution.</li>
+<li>Make sure the strips don't touch each other.</li>
+<li>Connect each metal to wires using alligator clips.</li>
+</ol>
+<ol>
+<h4>Step 4: Complete the Circuit</h4>
+<li>Connect the wires to a multimeter to measure voltage or to a small LED (optional). You should see a voltage (~0.4–0.8V per cell depending on peel type and peroxide amount).</li>
+</ol>
+<ol>
+<h4>Step 5: (Optional) Increase Power</h4>
+<li>To increase voltage or current, connect multiple such cells in series or parallel.</li>
+</ol>
+
+<p><b>Working Principle:</b></p>
+<p>Zinc (Anode) loses electrons (oxidation):<br>
+Zn → Zn²⁺ + 2e⁻</p>
+<p>Hydrogen peroxide + Cu (Cathode) gains electrons (reduction):<br>
+H₂O₂ + 2H⁺ + 2e⁻ → 2H₂O</p>
+<p>The peel extract acts as the electrolyte, enabling ion flow.</p>
+</div>
+<style>
+.steps {
+margin-top: 20px;
+padding: 20px;
+background-color: var(--light);
+border-radius: 10px;
+box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.steps h3 {
+text-align: center;
+color: var(--secondary);
+}
+.steps ol {
+padding-left: 20px;
+}
+.steps li {
+margin-bottom: 10px;
+}
+</style>
+</body>
+</html>

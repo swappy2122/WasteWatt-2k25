@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoDisposal Solutions | Professional Waste Management</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.3/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.3/leaflet.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.3/leaflet.css"
+/>
+<style>
+:root {
+--primary-color: #2c7744;
+--secondary-color: #1a4d2e;
+--accent-color: #4caf50;
+--light-grey: #f5f5f5;
+--dark-grey: #333;
+--white: #fff;
+}
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+background-color: var(--light-grey);
+color: var(--dark-grey);
+line-height: 1.6;
+}
+header {
+background-color: var(--primary-color);
+color: var(--white);
+padding: 1rem 0;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+nav {
+display: flex;
+justify-content: space-between;
+align-items: center;
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 2rem;
+}
+.logo {
+font-size: 1.8rem;
+font-weight: bold;
+display: flex;
+align-items: center;
+}
+.logo-icon {
+margin-right: 10px;
+font-size: 2rem;
+}
+.nav-links {
+display: flex;
+list-style: none;
+}
+.nav-links li {
+margin-left: 2rem;
+}
+.nav-links a {
+color: var(--white);
+text-decoration: none;
+font-weight: 500;
+transition: color 0.3s;
+}
+.nav-links a:hover {
+color: var(--light-grey);
+}
+.hamburger {
+display: none;
+cursor: pointer;
+background: none;
+border: none;
+color: var(--white);
+font-size: 1.5rem;
+}
+.container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 2rem;
+}
+.hero {
+background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+url('/api/placeholder/1200/400');
+background-size: cover;
+background-position: center;
+color: var(--white);
+text-align: center;
+padding: 5rem 2rem;
+margin-bottom: 2rem;
+}
+.hero h1 {
+font-size: 2.5rem;
+margin-bottom: 1rem;
+}
+.hero p {
+font-size: 1.2rem;
+max-width: 800px;
+margin: 0 auto;
+}
+.cta-button {
+display: inline-block;
+background-color: var(--accent-color);
+color: var(--white);
+padding: 0.8rem 1.5rem;
+margin-top: 1.5rem;
+text-decoration: none;
+border-radius: 4px;
+font-weight: 500;
+transition: background-color 0.3s;
+}
+.cta-button:hover {
+background-color: var(--secondary-color);
+}
+.services {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 2rem;
+margin-bottom: 3rem;
+}
+.service-card {
+background-color: var(--white);
+border-radius: 8px;
+padding: 1.5rem;
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+transition: transform 0.3s;
+}
+.service-card:hover {
+transform: translateY(-5px);
+}
+.service-icon {
+font-size: 2.5rem;
+color: var(--primary-color);
+margin-bottom: 1rem;
+}
+.service-card h3 {
+margin-bottom: 1rem;
+color: var(--secondary-color);
+}
+.form-section {
+background-color: var(--white);
+border-radius: 8px;
+padding: 2rem;
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+margin-bottom: 3rem;
+}
+.form-section h2 {
+color: var(--secondary-color);
+margin-bottom: 1.5rem;
+text-align: center;
+}
+.form-row {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 1.5rem;
+margin-bottom: 1.5rem;
+}
+.form-group {
+margin-bottom: 1rem;
+}
+.form-group label {
+display: block;
+margin-bottom: 0.5rem;
+font-weight: 500;
+}
+.form-control {
+width: 100%;
+padding: 0.8rem;
+border: 1px solid #ddd;
+border-radius: 4px;
+font-size: 1rem;
+}
+.form-control:focus {
+outline: none;
+border-color: var(--primary-color);
+}
+.checkbox-group {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 0.5rem;
+margin-top: 0.5rem;
+}
+.checkbox-item {
+display: flex;
+align-items: center;
+}
+.checkbox-item input {
+margin-right: 0.5rem;
+}
+.submit-btn {
+background-color: var(--primary-color);
+color: var(--white);
+border: none;
+border-radius: 4px;
+padding: 0.8rem 1.5rem;
+font-size: 1rem;
+font-weight: 500;
+cursor: pointer;
+transition: background-color 0.3s;
+width: 100%;
+}
+.submit-btn:hover {
+background-color: var(--secondary-color);
+}
+.modal {
+display: none;
+position: fixed;
+z-index: 1000;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+overflow: auto;
+background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-content {
+background-color: var(--white);
+margin: 10% auto;
+padding: 2rem;
+border-radius: 8px;
+max-width: 500px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+text-align: center;
+}
+.close-modal {
+color: #aaa;
+float: right;
+font-size: 1.5rem;
+font-weight: bold;
+cursor: pointer;
+}
+.close-modal:hover {
+color: var(--dark-grey);
+}
+.map-container {
+height: 400px;
+border-radius: 8px;
+overflow: hidden;
+margin-bottom: 3rem;
+}
+#map {
+height: 100%;
+}
+.iot-simulation {
+background-color: var(--white);
+border-radius: 8px;
+padding: 2rem;
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+margin-bottom: 3rem;
+}
+.iot-simulation h2 {
+color: var(--secondary-color);
+margin-bottom: 1.5rem;
+text-align: center;
+}
+.iot-container {
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.em-field-container {
+position: relative;
+width: 100%;
+max-width: 500px;
+height: 300px;
+margin: 1rem auto;
+border: 1px solid #ddd;
+border-radius: 8px;
+overflow: hidden;
+}
+.em-point {
+position: absolute;
+width: 20px;
+height: 20px;
+background-color: var(--primary-color);
+border-radius: 50%;
+transform: translate(-50%, -50%);
+}
+.em-wave {
+position: absolute;
+border-radius: 50%;
+border: 2px solid rgba(76, 175, 80, 0.5);
+transform: translate(-50%, -50%);
+animation: pulse 2s infinite;
+}
+@keyframes pulse {
+0% {
+width: 0;
+height: 0;
+opacity: 1;
+}
+100% {
+width: 300px;
+height: 300px;
+opacity: 0;
+}
+}
+.controls {
+display: flex;
+justify-content: center;
+gap: 1rem;
+margin-top: 1rem;
+}
+.controls button {
+padding: 0.5rem 1rem;
+background-color: var(--primary-color);
+color: var(--white);
+border: none;
+border-radius: 4px;
+cursor: pointer;
+transition: background-color 0.3s;
+}
+.controls button:hover {
+background-color: var(--secondary-color);
+}
+.metrics {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: 1rem;
+margin-top: 1.5rem;
+}
+.metric-card {
+background-color: var(--light-grey);
+padding: 1rem;
+border-radius: 4px;
+min-width: 120px;
+text-align: center;
+}
+.metric-value {
+font-size: 1.5rem;
+font-weight: bold;
+color: var(--primary-color);
+}
+.metric-label {
+font-size: 0.9rem;
+color: var(--dark-grey);
+}
+footer {
+background-color: var(--dark-grey);
+color: var(--white);
+padding: 2rem 0;
+text-align: center;
+}
+.footer-content {
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 2rem;
+}
+.footer-links {
+display: flex;
+justify-content: center;
+flex-wrap: wrap;
+margin: 1rem 0;
+}
+.footer-links a {
+color: var(--white);
+margin: 0 1rem;
+text-decoration: none;
+}
+.footer-links a:hover {
+text-decoration: underline;
+}
+@media (max-width: 768px) {
+.nav-links {
+display: none;
+flex-direction: column;
+position: absolute;
+top: 70px;
+left: 0;
+right: 0;
+background-color: var(--primary-color);
+padding: 1rem 0;
+z-index: 100;
+}
+.nav-links.active {
+display: flex;
+}
+.nav-links li {
+margin: 0.5rem 0;
+text-align: center;
+}
+.hamburger {
+display: block;
+}
+.hero h1 {
+font-size: 2rem;
+}
+.hero p {
+font-size: 1rem;
+}
+}
+</style>
+</head>
+<body>
+<header>
+<nav>
+<div class="logo">
+<span class="logo-icon"> </span>
+<span>EcoDisposal Solutions</span>
+</div>
+<button class="hamburger">☰</button>
+<ul class="nav-links">
+<li><a href="/">Home</a></li>
+<li><a href="#services">Services</a></li>
+<li><a href="#request-form">Request Service</a></li>
+<li><a href="#location">Location</a></li>
+<li><a href="/about">About Us</a></li>
+<li><a href="/simulation">How It Works</a></li>
+<li><a href="/admin">Admin</a></li>
+</ul>
+</nav>
+</header>
+<section id="home" class="hero">
+<div class="container">
+<h1>Professional Waste Management Solutions</h1>
+<p>We provide efficient, sustainable, and cost-effective waste disposal services for
+businesses of all sizes. Our state-of-the-art facility uses advanced technology to ensure proper
+handling and recycling of materials.</p>
+<a href="#request-form" class="cta-button">Request Service</a>
+</div>
+</section>
+<div class="container">
+<section id="services">
+<h2 style="text-align: center; margin-bottom: 2rem; color: var(--secondary-color);">Our
+Services</h2>
+<div class="services">
+<div class="service-card">
+<div class="service-icon"> </div>
+<h3>Industrial Waste Disposal</h3>
+<p>Safe and compliant disposal solutions for manufacturing byproducts, chemicals,
+and other industrial waste materials.</p>
+</div>
+<div class="service-card">
+<div class="service-icon"> </div>
+<h3>Recycling Services</h3>
+<p>Comprehensive recycling programs for paper, plastic, metal, glass, and
+electronics to reduce your environmental footprint.</p>
+</div>
+<div class="service-card">
+<div class="service-icon"> </div>
+<h3>Commercial Waste Management</h3>
+<p>Regular collection and disposal services for offices, retail stores, restaurants, and
+other commercial establishments.</p>
+</div>
+<div class="service-card">
+<div class="service-icon"> </div>
+<h3>On-Demand Pickup</h3>
+<p>Flexible waste collection scheduling to accommodate your business needs with
+prompt and reliable service.</p>
+</div>
+</div>
+</section>
+<section id="request-form" class="form-section">
+<h2>Request Waste Disposal Service</h2>
+<form id="disposal-request-form">
+<div class="form-row">
+<div class="form-group">
+<label for="company">Company Name*</label>
+<input type="text" id="company" name="company" class="form-control" required>
+</div>
+<div class="form-group">
+<label for="contactPerson">Contact Person*</label>
+<input type="text" id="contactPerson" name="contactPerson" class="form-control" required>
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label for="phone">Phone Number*</label>
+<input type="tel" id="phone" name="phone" class="form-control" required>
+</div>
+<div class="form-group">
+<label for="email">Email Address*</label>
+<input type="email" id="email" name="email" class="form-control" required>
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label for="serviceType">Service Type*</label>
+<select id="serviceType" name="serviceType" class="form-control" required>
+<option value="">-- Select Service Type --</option>
+<option value="pickup">Pickup (We collect from your location)</option>
+<option value="dropoff">Drop-off (You deliver to our facility)</option>
+</select>
+</div>
+</div>
+<div class="form-group">
+<label for="address">Address*</label>
+<input type="text" id="address" name="address" class="form-control" required>
+</div>
+<div class="form-group">
+<label>Material Types*</label>
+<div class="checkbox-group">
+<div class="checkbox-item">
+<input type="checkbox" id="material-food" name="materials" value="food">
+<label for="material-food">Food Waste</label>
+</div>
+<div class="checkbox-item">
+<input type="checkbox" id="material-fruit" name="materials" value="fruit">
+<label for="material-fruit">Fruit Waste</label>
+</div>
+<div class="checkbox-item">
+<input type="checkbox" id="material-vegetable" name="materials" value="vegetable">
+<label for="material-vegetable">Vegetable Waste</label>
+</div>
+<div class="checkbox-item">
+<input type="checkbox" id="material-construction" name="materials" value="construction">
+<label for="material-construction">Construction</label>
+</div>
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label for="date">Preferred Date*</label>
+<input type="date" id="date" name="date" class="form-control" required>
+</div>
+<div class="form-group">
+<label for="time">Preferred Time*</label>
+<select id="time" name="time" class="form-control" required>
+<option value="">-- Select Time --</option>
+<option value="morning">Morning (8am - 12pm)</option>
+<option value="afternoon">Afternoon (12pm - 4pm)</option>
+<option value="evening">Evening (4pm - 8pm)</option>
+</select>
+</div>
+</div>
+<div class="form-group">
+<label for="notes">Additional Notes</label>
+<textarea id="notes" name="notes" class="form-control" rows="4"></textarea>
+</div>
+<div class="form-group">
+<button type="submit" class="submit-btn">Submit Request</button>
+</div>
+</form>
+</section>
+<section id="iot-simulation" class="iot-simulation">
+<h2>IoT Electromagnetic Monitoring System</h2>
+<p style="text-align: center; margin-bottom: 1.5rem;">Our facility uses advanced IoT
+sensors to monitor electromagnetic fields for safety and efficiency. Below is a real-time
+simulation of our monitoring system.</p>
+<div class="iot-container">
+<div class="em-field-container" id="em-field">
+<!-- Sensors and EM waves will be generated by JavaScript -->
+</div>
+<div class="controls">
+<button id="add-sensor">Add Sensor</button>
+<button id="reset-simulation">Reset</button>
+</div>
+<div class="metrics">
+<div class="metric-card">
+<div class="metric-value" id="active-sensors">0</div>
+<div class="metric-label">Active Sensors</div>
+</div>
+<div class="metric-card">
+<div class="metric-value" id="field-strength">0</div>
+<div class="metric-label">Field Strength (μT)</div>
+</div>
+<div class="metric-card">
+<div class="metric-value" id="data-points">0</div>
+<div class="metric-label">Data Points/Min</div>
+</div>
+</div>
+</div>
+</section>
+<section id="location">
+<h2 style="text-align: center; margin-bottom: 2rem; color: var(--secondary-color);">Our
+Location</h2>
+<div class="map-container">
+<div id="map"></div>
+</div>
+</section>
+</div>
+<footer>
+<div class="footer-content">
+<div class="logo" style="justify-content: center; margin-bottom: 1rem;">
+<span class="logo-icon"> </span>
+<span>EcoDisposal Solutions</span>
+</div>
+<div class="footer-links">
+<a href="#home">Home</a>
+<a href="#services">Services</a>
+<a href="#request-form">Request Service</a>
+<a href="#location">Location</a>
+<a href="/about">About Us</a>
+<a href="/simulation">How It Works</a>
+</div>
+<p>&copy; 2025 EcoDisposal Solutions. All rights reserved.</p>
+</div>
+</footer>
+<div id="confirmation-modal" class="modal">
+<div class="modal-content">
+<span class="close-modal">&times;</span>
+<h2 style="color: var(--primary-color); margin-bottom: 1rem;">Thank You!</h2>
+<p>Your disposal request has been submitted successfully. Our team will contact you
+shortly to confirm the details.</p>
+<p style="margin-top: 1rem;"><strong>Reference Number:</strong> <span
+id="reference-number"></span></p>
+</div>
+</div>
+<script>
+    document.getElementById('disposal-request-form')?.addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const materials = Array.from(document.querySelectorAll('input[name="materials"]:checked')).map(cb => cb.value);
+
+  const formData = {
+    company: document.getElementById('company').value,
+    contactPerson: document.getElementById('contactPerson').value,
+    phone: document.getElementById('phone').value,
+    email: document.getElementById('email').value,
+    serviceType: document.getElementById('serviceType').value,
+    address: document.getElementById('address').value,
+    materials,
+    date: document.getElementById('date').value,
+    time: document.getElementById('time').value,
+    notes: document.getElementById('notes').value
+  };
+
+  fetch('/api/disposal-request', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData)
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      document.getElementById('reference-number').textContent = data.referenceNumber;
+      document.getElementById('confirmation-modal').style.display = 'block';
+      this.reset();
+    } else {
+      alert('❌ Error: ' + data.message);
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    alert('❌ An error occurred. Please try again later.');
+  });
+});
+
+document.querySelector('.close-modal')?.addEventListener('click', () => {
+  document.getElementById('confirmation-modal').style.display = 'none';
+});
+
+</script>
+</body>
+</html>
