@@ -16,7 +16,18 @@ EcoDisposal Solutions is a web application that enables users to submit waste di
 ## 📁 Folder Structure
 
 ```bash 
-project/ ├── public/ # Frontend (HTML/CSS/JS) │ ├── index.html │ ├── main.js │ ├── style.css │ └── admin.html / login.html / simulation.html ├── server.js # Express.js backend ├── package.json └── vercel.json # Vercel deployment configuration
+project/
+|               
+├── index.html          # Main landing page
+├── main.js             # Frontend JavaScript logic
+├── style.css           # Styling for the app
+├── admin.html          # Admin panel page
+├── login.html          # Login page
+├── simulation.html     # Simulation view/page
+├── server.js               # Express.js backend server
+├── package.json            # Node.js dependencies and scripts
+└── vercel.json             # Vercel deployment configuration
+
 ```
 
 
@@ -54,9 +65,9 @@ node server.js
 
 | Name             | GitHub                                             | LinkedIn                                                |
 |------------------|----------------------------------------------------|----------------------------------------------------------|
-| Swarup Patankar  | [@patankarswarup9](https://github.com/patankarswarup9) | [Swarup Patankar](https://in.linkedin.com/in/swarup-patankar-908a6434a) |
+| Swarup Patankar  | [@patankarswarup9](https://github.com/patankarswarup9) | [@Swarup Patankar](https://in.linkedin.com/in/swarup-patankar-908a6434a) |
 | Om Patil         | None                                                   |  None                                                          |
 | Aditya Pednekar  | None                                                   |  None                                                          |
-| Nidhi Inamdar    | [@Techy-specy01](https://github.com/Techy-specy01)     | [Nidhi Inamdar](https://www.linkedin.com/in/nidhi-inamdar-056327213?) |
-| Dipti Khande     | [@Diptikhande](https://github.com/Diptikhande)         | None                                                           |
+| Nidhi Inamdar    | [@Techy-specy01](https://github.com/Techy-specy01)     | [@Nidhi Inamdar](https://www.linkedin.com/in/nidhi-inamdar-056327213?) |
+| Dipti Khande     | [@Diptikhande](https://github.com/Diptikhande)         |  None                                                           |
 
