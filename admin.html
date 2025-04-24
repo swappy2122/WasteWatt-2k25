@@ -68,7 +68,6 @@
       <a class="logout-btn" href="/admin/logout">Logout</a>
     </div>
 
-    <!-- Future section to load disposal requests -->
     <div class="section" id="requests-section" style="display:none;">
       <h2>Disposal Requests</h2>
       <div id="requests-container">Loading requests...</div>
@@ -76,7 +75,6 @@
   </div>
 
   <script>
-    // Optional: Load requests on page load
     async function loadRequests() {
       try {
         const response = await fetch('/admin/requests');
@@ -85,7 +83,7 @@
         const container = document.getElementById('requests-container');
         const section = document.getElementById('requests-section');
 
-        if (data && data.length > 0) {
+        if (Array.isArray(data) && data.length > 0) {
           section.style.display = 'block';
           container.innerHTML = data.map(req => `
             <div style="margin-bottom: 15px; padding: 10px; border-bottom: 1px solid #444;">
@@ -93,7 +91,8 @@
               Contact: ${req.contactPerson} | ${req.phone}<br/>
               Email: ${req.email}<br/>
               Type: ${req.serviceType}<br/>
-              Requested on: ${new Date(req.createdAt).toLocaleString()}
+              Requested on: ${new Date(req.createdAt).toLocaleString()}<br/>
+              Reference: ${req.referenceNumber}
             </div>
           `).join('');
         } else {
@@ -102,6 +101,8 @@
         }
       } catch (err) {
         console.error('Failed to load requests:', err);
+        document.getElementById('requests-section').style.display = 'block';
+        document.getElementById('requests-container').textContent = 'Failed to load requests.';
       }
     }
 

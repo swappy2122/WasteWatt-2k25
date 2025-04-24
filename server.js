@@ -89,4 +89,15 @@ app.post('/api/disposal-request', async (req, res) => {
   }
 });
 
+// Fetch disposal requests for admin dashboard
+app.get('/admin/requests', isAuthenticated, async (req, res) => {
+  try {
+    const requests = await DisposalRequest.find().sort({ createdAt: -1 });
+    res.json(requests);
+  } catch (err) {
+    console.error('❌ Error fetching requests:', err);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
 app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));
