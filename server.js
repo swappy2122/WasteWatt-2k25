@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // MongoDB connection
-mongoose.connect('mongodb+srv://patankarswarup9:a3nsuenyYouIUlNg@cluster0.brc07ga.mongodb.net/foodwaste', {
+mongoose.connect('mongodb+srv://patankarswarup9:a3nsuenyYouIUlN@cluster0.brc07ga.mongodb.net//foodwaste', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
